@@ -16,7 +16,7 @@ type Buffer struct {
 
 func GenerateSeed(max int) int {
 	rand.Seed(time.Now().UnixNano())
-	return rand.Intn(int64(max))
+	return rand.Intn(max)
 }
 
 func GenerateDictionaryBuffer() *Buffer {
