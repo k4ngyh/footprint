@@ -77,7 +77,7 @@ func GenerateFootprint(words int) string {
 	for i := 0; i < words; i++ {
 		var word string
 
-		for len(word) > 2 {
+		for len(word) <= 2 {
 			seed := GenerateSeed(len(buffer.indices))
 			word = buffer.ReadLine(seed)
 		}
