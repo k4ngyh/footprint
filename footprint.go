@@ -2,15 +2,17 @@ package footprint
 
 import (
 	"bytes"
-	"log"
+	"embed"
 	"math/rand"
-	"os"
 	"strings"
 	"time"
 )
 
+//go:embed words_alpha.txt
+var e embed.FS
+
 type Buffer struct {
-	data []byte
+	data    []byte
 	indices [][]int
 }
 
@@ -20,10 +22,10 @@ func GenerateSeed(max int) int {
 }
 
 func GenerateDictionaryBuffer() *Buffer {
-	file, err := os.ReadFile("words_alpha.txt")
+	file, err := e.ReadFile("words_alpha.txt")
 
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
 	bom := []byte{0xEF, 0xBB, 0xBF}
@@ -50,7 +52,7 @@ func GenerateDictionaryBuffer() *Buffer {
 		j += i
 		i = j + 1
 
-		if j > 0 && file[j - 1] == '\r' {
+		if j > 0 && file[j-1] == '\r' {
 			j--
 		}
 
